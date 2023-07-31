@@ -1,0 +1,22 @@
+---@meta _
+---@class Gadget
+----- hardware definition start -----
+---@field Motherboards Motherboard[]
+---@field PowerButton0 PowerButton
+---@field ROM ROM
+---@field AudioChip0 AudioChip
+---@field Wifi0 Wifi
+---@field FlashMemory0 FlashMemory
+---@field CPU0 CPU
+---@field VideoChip0 VideoChip
+---@field KeyboardChip0 KeyboardChip
+---@field RealityChip RealityChip
+---@field LedButton0 LedButton
+---@field LedButton1 LedButton
+---@field LedButton2 LedButton
+---@field LedButton3 LedButton
+-----           ......          -----
+-----  hardware definition end  -----
+
+---@type Gadget
+gdt = {}

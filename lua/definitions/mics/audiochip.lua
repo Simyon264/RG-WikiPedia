@@ -1,0 +1,29 @@
+---@meta _
+
+---The AudioChip can be used together with a `Speaker` to make your gadgets produce sounds through the usage of `AudioSamples`.
+---@class AudioChip:Module
+---@field ChannelsCount number Number of available channels for this AudioChip. Each channel can independently play an audio sample. READ ONLY.
+---@field Volume number The global AudioChip volume.
+---@field Type "AudioChip"
+---@field GetSpectrumData fun(self:AudioChip, channel:number, samplesCount:number):number[] Returns the audio spectrum values of a `channel` as a table of number values, each one expressing the value of a different frequency. `samplesCount` must be a power of 2 (ie 128/256/512 etc) Min = 64 Max = 8192.
+---@field GetDspTime fun(self:AudioChip):number Returns the current internal AudioChip's DSP time. It is meant to be used in combination with the `PlayScheduled` method. The returned number is expressed in seconds.
+---@field Play fun(self:AudioChip, audioSample:AudioSample, channel:number) Immediately plays an `AudioSample` on a specific `channel`.
+---@field PlayScheduled fun(self:AudioChip, audioSample:AudioSample, channel:number, dspTime:number) Schedule the play of and AudioSample at a specific DSP time, expressed in seconds, on the specific `channel`.
+---@field PlayLoop fun(self:AudioChip, audioSample:AudioSample, channel:number) Immediately plays an AudioSample on a specific `channel`, looping it.
+---@field PlayLoopScheduled fun(self:AudioChip, audioSample:AudioSample, channel:number, dspTime:number) Schedule the play of and AudioSample at a specific DSP time, expressed in seconds, on the specific `channel`, looping it.
+---@field Stop fun(self:AudioChip, channel:number) Stops any audio playing on a specific `channel`.
+---@field Pause fun(self:AudioChip, channel:number) Pause the audio on a specific `channel`.
+---@field UnPause fun(self:AudioChip, channel:number) Resumes the audio on a specific `channel`.
+---@field IsPlaying fun(self:AudioChip, channel:number):boolean Returns `true` if a `channel` is currently playing audio.
+---@field IsPaused fun(self:AudioChip, channel:number):boolean Returns `true` if a `channel` is currently paused.
+---@field GetPlayTime fun(self:AudioChip, channel:number):number Returns the current play time of a `channel`, expressed in seconds.
+---@field SeekPlayTime fun(self:AudioChip, time:number, channel:number) Sets the current position of the play head, for the specific `channel`, expressed in seconds.
+---@field SetChannelVolume fun(self:AudioChip, volume:number, channel:number) Sets the current volume for a `channel`, 0-100 range.
+---@field GetChannelVolume fun(self:AudioChip, channel:number):number Gets the current volume for a `channel`, 0-100 range.
+---@field SetChannelPitch fun(self:AudioChip, pitch:number, channel:number) Sets the `pitch` for a `channel`. Acts as a multiplier. A value of 1 means the default pitch for a sample, a value of 2 plays the sample one octave higher.
+---@field GetChannelPitch fun(self:AudioChip, channel:number):number Gets the current pitch of a `channel`.
+
+---Sent when a channel has finished playing.
+---@class AudioChipChannelEvent
+---@field Channel number
+---@field Type "AudioChipChannelEvent" is "AudioChipChannelEvent"
