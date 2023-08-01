@@ -5,8 +5,8 @@ vars.state = "connecting"
 
 --#region Connection
 vars.usingCustomEndpoint = false
-vars.customEndpoint = ""
-vars.endPoint = "http://localhost:7000"
+vars.customEndpoint = "http://45.93.249.136:42069"
+vars.endPoint = "http://45.93.249.136:42069"
 vars.connectionAttempts = 0
 vars.isConnected = false
 vars.isAttemptingConnection = false

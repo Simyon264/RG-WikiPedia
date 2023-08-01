@@ -585,7 +585,7 @@ function eventChannel1(sender, event)
         -- Conection successful, reset connection attempts and fetch the front page
         vars.connectionAttempts = 0
         vars.isPageFetching = false
-        print("Connected")
+        print("Connected using UUID " .. vars.uuid .. ". Using API endpoint " .. getURLPath())
         --gdt.Wifi0:WebGet(getURLPath() .. "/page/front")
         return
     elseif type == "heartbeat" then

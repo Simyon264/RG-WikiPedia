@@ -7,9 +7,6 @@ function storage:Init()
     end
     self:validate()
     local saveData = gdt.FlashMemory0:Load()
-    vars.usingCustomEndpoint = saveData.usingCustomEndpoint
-    vars.customEndpoint = saveData.customEndpoint
-    vars.endPoint = saveData.endPoint
     vars.completedSetup = saveData.completedSetup
     vars.lastPage = saveData.lastPage
     vars.marked = saveData.marked
@@ -18,7 +15,7 @@ function storage:Init()
 end
 
 ---Returns save data
----@return {usingCustomEndpoint: boolean, customEndpoint: string, endPoint: string, completedSetup: boolean, completedImageSetup:boolean, lastPage: string, marked: table, enableStatistics: boolean}
+---@return { completedSetup: boolean, completedImageSetup:boolean, lastPage: string, marked: table, enableStatistics: boolean}
 function storage:GetStorage()
     self:validate()
     return gdt.FlashMemory0:Load()
@@ -29,9 +26,6 @@ function storage:Reset(reason)
     print("Resetting save data...")
     print("Reason: " .. reason)
     return gdt.FlashMemory0:Save({
-        usingCustomEndpoint = false,
-        customEndpoint = vars.customEndpoint,
-        endPoint = vars.endPoint,
         completedSetup = false,
         lastPage = "",
         marked = {},
@@ -43,9 +37,6 @@ end
 function storage:Save()
     print("Saving...")
     local didSave = gdt.FlashMemory0:Save({
-        usingCustomEndpoint = vars.usingCustomEndpoint,
-        customEndpoint = vars.customEndpoint,
-        endPoint = vars.endPoint,
         completedSetup = vars.completedSetup,
         lastPage = vars.lastPage,
         marked = vars.marked,
@@ -65,18 +56,6 @@ function storage:validate()
 
     if type(saveData.marked) ~= "table" then
         self:Reset("marked is not a table")
-    end
-
-    if type(saveData.usingCustomEndpoint) ~= "boolean" then
-        self:Reset("usingCustomEndpoint is not a boolean")
-    end
-
-    if type(saveData.customEndpoint) ~= "string" then
-        self:Reset("customEndpoint is not a string")
-    end
-
-    if type(saveData.endPoint) ~= "string" then
-        self:Reset("endPoint is not a string")
     end
 
     if type(saveData.completedSetup) ~= "boolean" then
