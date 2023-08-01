@@ -311,6 +311,10 @@ router.get("/page/front", async (req, res) => {
         month = `0${month}`
     }
 
+    if (parseInt(day as string) < 10) {
+        day = `0${day}`
+    }
+
     // We have to use fetch because WikiJS does not have a feed function
     try {
         const response = await fetch(`https://en.wikipedia.org/api/rest_v1/feed/featured/${year}/${month}/${day}`, {

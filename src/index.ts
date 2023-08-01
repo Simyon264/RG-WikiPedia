@@ -2,6 +2,9 @@ import express from "express";
 import WikiJS from "wikijs";
 import fs from "fs";
 import gm from "gm";
+import dotenv from "dotenv";
+dotenv.config();
+
 gm.subClass({
     appPath: String.raw`C:\Program Files\GraphicsMagick-1.3.40-Q16\gm.exe`
 })
@@ -30,7 +33,7 @@ const wiki = WikiJS({
 })
 
 const app = express();
-const port = 7000;
+const port = process.env.PORT || 7000;
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
