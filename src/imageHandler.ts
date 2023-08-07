@@ -202,8 +202,6 @@ function ConvertToLuaReadable(imagePath: string, skipCache: boolean = false) {
             const b = data.data[idx + 2]
             const a = data.data[idx + 3]
 
-            console.log(a)
-
             row += `${r} ${g} ${b} ${a} `
         }
         lines += `${row}\n`
