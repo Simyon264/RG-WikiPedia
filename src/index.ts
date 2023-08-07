@@ -10,6 +10,7 @@ gm.subClass({
 })
 
 import get from "./Routes/get";
+import { appendToLog } from "./usage";
 
 console.log("Clearing cache...")
 if (!fs.existsSync("./cache")) {
@@ -37,6 +38,7 @@ const port = process.env.PORT || 7000;
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
+    appendToLog(`Server running on port ${port}`, "Server");
 });
 
 app.use(express.json());
@@ -47,6 +49,7 @@ app.use(express.urlencoded({
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.log(`${req.method} ${req.url} ${req.headers["user-agent"]}`);
     console.log(req.query)
+    appendToLog(`${req.method} ${req.url} ${req.headers["user-agent"]}\n${req.query}`, "Request");
     next();
 });
 
@@ -56,6 +59,7 @@ setInterval(() => {
     for (const [id, uses] of clients) {
         if (uses <= 0) {
             console.log(`Client ${id} has timed out`)
+            appendToLog(`Client ${id} has timed out`, "Client");
             clients.delete(id);
         } else {
             clients.set(id, uses - 1);
@@ -63,12 +67,19 @@ setInterval(() => {
     }
 }, 1000);
 
+// Client logging every 5 minutes
+setInterval(() => {
+    appendToLog(`There are ${clients.size} clients connected`);
+}, 1000 * 60 * 5)
+
 process.on("uncaughtException", (err) => {
     console.error(err);
+    appendToLog(err.message, "Error");
 });
 
-process.on("unhandledRejection", (err) => {
+process.on("unhandledRejection", (err: Error) => {
     console.error(err);
+    appendToLog(err.message, "Error");
 });
 
 export {

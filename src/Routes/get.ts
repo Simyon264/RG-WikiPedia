@@ -3,6 +3,7 @@ import { app, clients, wiki } from "..";
 import fs from "fs";
 import { ConvertToLuaReadable, downloadImage, getCroppedImage } from "../imageHandler";
 import { v4 as uuidv4 } from 'uuid';
+import { appendToLog } from "../usage";
 
 
 const router = Router();
@@ -58,6 +59,8 @@ router.get("/statistics/connection", async (req, res) => {
     // 10 more seconds than the default heartbeat interval
     // to account for network latency and other factors
     clients.set(uuid, 70);
+
+    appendToLog(`Client ${uuid} connected`, "Client");
 
     return res.json({
         type: "connection",
