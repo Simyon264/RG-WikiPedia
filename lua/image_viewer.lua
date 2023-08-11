@@ -302,6 +302,7 @@ function render()
                     isWaitingForData = true
                     x = 0
                     y = 0
+                    vars.imageUrl = newImageUrl
                     gdt.Wifi0:WebGet(getURLPath() .. "/image/crop" .. tableToQuery({
                         url = newImageUrl,
                         stream = false,
