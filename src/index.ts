@@ -49,7 +49,7 @@ app.use(express.urlencoded({
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
     console.log(`${req.method} ${req.url} ${req.headers["user-agent"]}`);
     console.log(req.query)
-    appendToLog(`${req.method} ${req.url} ${req.headers["user-agent"]}\n${req.query}`, "Request");
+    appendToLog(`${req.method} ${req.url} ${req.headers["user-agent"]}\n${JSON.stringify(req.query)}`, "Request");
     next();
 });
 
